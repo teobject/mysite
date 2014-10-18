@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Django で作る掲示板</title>
+
+<style type="text/css">
+    div.post{
+        border: 1px solid #cccccc;
+        padding:5px;
+        margin:5px;
+    }
+    div.title {
+        background-color:#e2eef7;
+    }
+    div.date {
+        text-align:right;
+        margin-right:10px;
+    }
+    div.comment {
+        padding:5px;
+    }
+</style>
+</head>
+<body>
+
+
+<!-- データ繰り返し表示 開始 -->
+{% if all_comment %}
+    {% for bb in all_comment %}
+    <div class="post">
+        <div class="title">{{ bb.title }}</div>
+        <div class="date">{{ bb.name }} @ {{ bb.post_date }}</div>
+        <div class="comment">
+            {{ bb.comment }}
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+no comment
+{% endif %}
+<!-- データ繰り返し表示 終了 -->
+
+<!-- 投稿フォーム 開始 -->
+<div class="post">
+    <form action="/bb/post/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+       <input type="submit" value="送信">
+   </form>
+</div>
+<!-- 投稿フォーム 終了 -->
+
+</body>
+</html>
+
